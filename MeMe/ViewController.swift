@@ -43,7 +43,7 @@ UINavigationControllerDelegate {
         
         let memeTextAttributes : [String : Any] = [
             NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
-            NSAttributedStringKey.font.rawValue: UIFont(name: "Papya", size:20) ??  UIFont.systemFont(ofSize: 20)
+            NSAttributedStringKey.font.rawValue: UIFont(name: "Papya", size:40) ??  UIFont.systemFont(ofSize: 40)
             ]
         
         topText.defaultTextAttributes = memeTextAttributes
@@ -179,9 +179,7 @@ UINavigationControllerDelegate {
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        
-        //move the picture back down while typing; we need to do this
-        //only for the botton keyboard
+        print(bottomText.isFirstResponder)
         if (bottomText.isFirstResponder)
         {
             view.frame.origin.y += getKeyboardHeight(notification as Notification)
@@ -196,5 +194,8 @@ UINavigationControllerDelegate {
         return keyboardSize.cgRectValue.height
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 
 }

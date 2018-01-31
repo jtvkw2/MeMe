@@ -12,6 +12,7 @@
 		63F83D1F201F9BBF00A077B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63F83D1D201F9BBF00A077B5 /* Main.storyboard */; };
 		63F83D21201F9BBF00A077B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63F83D20201F9BBF00A077B5 /* Assets.xcassets */; };
 		63F83D24201F9BBF00A077B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63F83D22201F9BBF00A077B5 /* LaunchScreen.storyboard */; };
+		63F83D2D2022591B00A077B5 /* Comic Sans MS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63F83D2C2022591B00A077B5 /* Comic Sans MS.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		63F83D20201F9BBF00A077B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63F83D23201F9BBF00A077B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63F83D25201F9BBF00A077B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63F83D2C2022591B00A077B5 /* Comic Sans MS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comic Sans MS.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		63F83D18201F9BBF00A077B5 /* MeMe */ = {
 			isa = PBXGroup;
 			children = (
+				63F83D2C2022591B00A077B5 /* Comic Sans MS.ttf */,
 				63F83D19201F9BBF00A077B5 /* AppDelegate.swift */,
 				63F83D1B201F9BBF00A077B5 /* ViewController.swift */,
 				63F83D1D201F9BBF00A077B5 /* Main.storyboard */,
@@ -124,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F83D24201F9BBF00A077B5 /* LaunchScreen.storyboard in Resources */,
+				63F83D2D2022591B00A077B5 /* Comic Sans MS.ttf in Resources */,
 				63F83D21201F9BBF00A077B5 /* Assets.xcassets in Resources */,
 				63F83D1F201F9BBF00A077B5 /* Main.storyboard in Resources */,
 			);

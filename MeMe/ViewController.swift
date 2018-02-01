@@ -28,6 +28,13 @@ UINavigationControllerDelegate, UITextFieldDelegate{
     @IBOutlet weak var bottomToolBar: UIToolbar!
     @IBOutlet weak var CancalButton: UIBarButtonItem!
     
+    let attributes : [String : Any] = [
+        NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
+        NSAttributedStringKey.font.rawValue: UIFont(name: "ComicSansMS", size: 40) ?? UIFont.systemFont(ofSize: 30),
+        NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
+        NSAttributedStringKey.strokeWidth.rawValue : -3.0
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,27 +42,18 @@ UINavigationControllerDelegate, UITextFieldDelegate{
         bottomText.delegate = self
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         
-        let attributes : [String : Any] = [
-            NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
-            NSAttributedStringKey.font.rawValue: UIFont(name: "ComicSansMS", size: 40) ?? UIFont.systemFont(ofSize: 30),
-            NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
-            NSAttributedStringKey.strokeWidth.rawValue : -3.0
-            ]
-        
-        topText.defaultTextAttributes = attributes
-        topText.textAlignment = NSTextAlignment.center
-        topText.text = "TOP"
-
-        bottomText.defaultTextAttributes = attributes
-        bottomText.textAlignment = NSTextAlignment.center
-        bottomText.text = "BOTTOM"
-        
-        subscribeToKeyboardNotifications()
+        configure(textField: bottomText, withText: "BOTTOM")
+        configure(textField: topText, withText: "TOP")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        subscribeToKeyboardNotifications()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -85,8 +83,8 @@ UINavigationControllerDelegate, UITextFieldDelegate{
     
     @IBAction func Cancel(_ sender: Any) {
         ImagePickerView.image = nil
-        topText.text = "Top Text"
-        bottomText.text = "Bottom Text"
+        topText.text = "TOP"
+        bottomText.text = "BOTTOM"
         dismiss(animated: true, completion: nil)
     }
     
@@ -105,7 +103,7 @@ UINavigationControllerDelegate, UITextFieldDelegate{
     }
     
     func generateMemedImage() -> UIImage {
-        toolbarState(Hidden: true)
+        toolbarState(hiddenBar: true)
         
         UIGraphicsBeginImageContext(view.frame.size)
         view.drawHierarchy(in: view.frame,
@@ -113,7 +111,7 @@ UINavigationControllerDelegate, UITextFieldDelegate{
         let memedImage : UIImage =
             UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        toolbarState(Hidden: false)
+        toolbarState(hiddenBar: false)
         return memedImage
     }
    
@@ -147,12 +145,20 @@ UINavigationControllerDelegate, UITextFieldDelegate{
     func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
+        pickerController.sourceType = sourceType
         present(pickerController, animated:true, completion:nil)
     }
     
-    func toolbarState(Hidden:Bool){
-        topToolBar.isHidden = Hidden
-        bottomToolBar.isHidden = Hidden
+    func toolbarState(hiddenBar:Bool){
+        topToolBar.isHidden = hiddenBar
+        bottomToolBar.isHidden = hiddenBar
+        print(topToolBar.isHidden)
+    }
+    
+    func configure(textField :UITextField, withText text: String){
+        textField.defaultTextAttributes = attributes
+        textField.textAlignment = NSTextAlignment.center
+        textField.text = text
     }
     
     @objc func keyboardWillShow(_ notification:Notification) {

@@ -11,3 +11,4 @@ import UIKit
 class MeMeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var memedImage: UIImageView!
 }
+

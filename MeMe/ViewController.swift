@@ -5,20 +5,18 @@
 //  Created by Jacob on 1/29/18.
 //  Copyright © 2018 Jacob Voyles. All rights reserved.
 //
-
 import UIKit
 import Foundation
 
 struct Meme {
     var topText : String
     var bottomText : String
-    var image : UIImage
     var memedImage : UIImage
 }
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UITextFieldDelegate{
-
+    
     @IBOutlet weak var ImagePickerView: UIImageView!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -55,7 +53,7 @@ UINavigationControllerDelegate, UITextFieldDelegate{
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -70,13 +68,19 @@ UINavigationControllerDelegate, UITextFieldDelegate{
     
     @IBAction func takeAction(sender: AnyObject) {
         let memedImage = generateMemedImage()
+        print(memedImage)
         let activityViewController = UIActivityViewController(activityItems: [memedImage],applicationActivities: nil)
-        
+
         present(activityViewController, animated: true)
         activityViewController.completionWithItemsHandler = {
             (activity, completed, items, error) in
             if (completed){
                 self.save(memedImage: memedImage)
+            }
+            if((error) != nil){
+                let alert = UIAlertController(title: "Error", message: "There was a problem saving, go out and try again", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -89,7 +93,7 @@ UINavigationControllerDelegate, UITextFieldDelegate{
     }
     
     func imagePickerController(_ picker: UIImagePickerController,
-                                        didFinishPickingMediaWithInfo info: [String : Any]) {
+                               didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             ImagePickerView.contentMode = UIViewContentMode.scaleAspectFit
             ImagePickerView.image = image
@@ -107,17 +111,16 @@ UINavigationControllerDelegate, UITextFieldDelegate{
         
         UIGraphicsBeginImageContext(view.frame.size)
         view.drawHierarchy(in: view.frame,
-                                afterScreenUpdates: true)
+                           afterScreenUpdates: true)
         let memedImage : UIImage =
             UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         toolbarState(hiddenBar: false)
         return memedImage
     }
-   
-    func save(memedImage:UIImage){
-        let meme = Meme( topText:topText.text!, bottomText: bottomText.text!, image:
-            ImagePickerView.image!, memedImage: memedImage)
+    
+    func save(memedImage: UIImage){
+        let meme = Meme( topText:topText.text!, bottomText: bottomText.text!, memedImage: memedImage)
         (UIApplication.shared.delegate as! AppDelegate).memes.append(meme)
     }
     

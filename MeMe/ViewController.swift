@@ -68,7 +68,6 @@ UINavigationControllerDelegate, UITextFieldDelegate{
     
     @IBAction func takeAction(sender: AnyObject) {
         let memedImage = generateMemedImage()
-        print(memedImage)
         let activityViewController = UIActivityViewController(activityItems: [memedImage],applicationActivities: nil)
 
         present(activityViewController, animated: true)
@@ -155,7 +154,6 @@ UINavigationControllerDelegate, UITextFieldDelegate{
     func toolbarState(hiddenBar:Bool){
         topToolBar.isHidden = hiddenBar
         bottomToolBar.isHidden = hiddenBar
-        print(topToolBar.isHidden)
     }
     
     func configure(textField :UITextField, withText text: String){
@@ -165,7 +163,6 @@ UINavigationControllerDelegate, UITextFieldDelegate{
     }
     
     @objc func keyboardWillShow(_ notification:Notification) {
-        print(bottomText.isFirstResponder)
         if (bottomText.isFirstResponder){
             view.frame.origin.y -= getKeyboardHeight(notification)
         }
